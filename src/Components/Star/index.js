@@ -10,8 +10,6 @@ const Star = ({ isActive }) => {
     }
 
     return (<FaRegStar color="#D3d3d3"/>)
-
-
 }
 
 export default Star
