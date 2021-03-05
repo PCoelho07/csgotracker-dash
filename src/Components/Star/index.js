@@ -5,11 +5,11 @@ const Star = ({ isActive }) => {
 
     if (isActive) {
         return (
-            <FaStar color="#FFCA24" />
+            <FaStar size="15" color="#FFCA24" />
         )
     }
 
-    return (<FaRegStar color="#D3d3d3"/>)
+    return (<FaRegStar size="15" color="#D3d3d3"/>)
 }
 
 export default Star

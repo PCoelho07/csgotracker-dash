@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 
 import { RiSearchLine } from "react-icons/ri";
-import { FaStar, FaRegStar } from "react-icons/fa";
 
 import {
-  Box,
-  Divider,
+  Button,
   Flex,
   Heading,
   Input,
-  scaleFadeConfig,
   Text,
 } from '@chakra-ui/react';
+
 import Star from './Components/Star';
+import MatchItem from './Components/MatchItem';
 
 const data = [
   {
@@ -21,6 +20,7 @@ const data = [
     firstTeam: "Mibr",
     lastTeam: "Furia",
     stars: 4,
+    meta: 'BO3'
   },
   {
     tournamentName: "IEM Katowice 2021",
@@ -28,28 +28,52 @@ const data = [
     firstTeam: "Mibr",
     lastTeam: "Furia",
     stars: 4,
+    meta: 'BO1'
+  },
+  {
+    tournamentName: "IEM Katowice 2021",
+    dateTime: "2021-02-23 11:00",
+    firstTeam: "Mibr",
+    lastTeam: "Furia",
+    stars: 4,
+    meta: 'BO1'
+  },
+  {
+    tournamentName: "IEM Katowice 2021",
+    dateTime: "2021-02-23 11:00",
+    firstTeam: "Mibr",
+    lastTeam: "Furia",
+    stars: 4,
+    meta: 'BO1'
+  },
+  {
+    tournamentName: "IEM Katowice 2021",
+    dateTime: "2021-02-23 11:00",
+    firstTeam: "Mibr",
+    lastTeam: "Furia",
+    stars: 4,
+    meta: 'BO1'
+  },
+  {
+    tournamentName: "IEM Katowice 2021",
+    dateTime: "2021-02-25 11:00",
+    firstTeam: "Mibr",
+    lastTeam: "Furia",
+    stars: 4,
+    meta: 'BO1'
   },
 ]
 
 function App() {
   const [searchInput, setSearchInput] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  const generateStars = stars => {
-    let range = []
+  const handleClickMore = () => {
+    setIsLoading(true)
 
-    if (stars > 4) {
-      stars = 4
-    }
-
-    range = Array(stars).fill().map((_, index) => <Star isActive key={index} />)
-    let result = range
-
-    if (range.length < 4) {
-      const inactiveRange = Array(4 - range.length).fill().map((_, index) => <Star key={index}/>)
-      result = [...range, ...inactiveRange]
-    }
-    console.log(result)
-    return result
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   return (
@@ -63,7 +87,7 @@ function App() {
     >
       <Flex
         as="header"
-        h="20"
+        h="16"
         bgColor="white"
         px="8"
         shadow="0 0 50px rgba(0, 0, 0, 0.05)"
@@ -87,34 +111,14 @@ function App() {
       </Flex>
 
       <Flex
-        direction="column"
         alignItems="center"
         mt="100px"
-        mb="100px"
+        mb="5"
+        wrap="wrap"
       >
         {
           !searchInput && data.map((match, index) => (
-            <Box key={index} _hover={{ transform: "translate3d(0px, -4px, 0px);", boxShadow: "rgba(0, 0, 0, 0.22) 0px 19px 43px;" }} transition="ease all .3s" borderRadius="md" p="6" mb="5" bgColor="white" w="lg"  shadow="0 0 50px rgba(0, 0, 0, 0.05)">
-              <Flex
-                justifyContent="space-between"
-                color="gray.500"
-                letterSpacing="wide"
-                fontSize="sm"
-              >
-                <span>{match.tournamentName}</span>  <span>{match.dateTime}</span>
-              </Flex>
-
-              <Flex flex="1" justifyContent="center" alignItems="center" mt="10" fontWeight="semibold" textTransform="uppercase">
-                <Text p="5">{match.firstTeam}</Text>x<Text p="5">{match.lastTeam}</Text>
-              </Flex>
-
-              <Flex justifyContent="center">
-                {
-                 generateStars(match.stars)
-                }
-              </Flex>
-
-            </Box>
+            <MatchItem match={match} key={index}/>
           ))
         }
 
@@ -129,7 +133,9 @@ function App() {
         }
 
       </Flex>
-
+      <Button colorScheme="facebook" mb="10" isLoading={isLoading} onClick={() => handleClickMore()}>
+        Ver mais
+      </Button>
     </Flex>
   );
 }
